@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: EmailService
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: clothlog@gmail.com
+    password: wjpkyiolsgfokgjj
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
