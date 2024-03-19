@@ -1,8 +1,7 @@
 package com.productsyncapp.emailservice.service;
 
-import com.productsyncapp.emailservice.dto.EmailDetails;
-import com.productsyncapp.emailservice.dto.RegisterationEmailDetails;
+import com.productsyncapp.emailservice.dto.RegisterationEmailRequest;
 
 public interface EmailService {
-    String sendVerificationEMail(RegisterationEmailDetails registerationEmailDetails);
+    String sendVerificationEMail(RegisterationEmailRequest registerationEmailRequest);
 }

@@ -1,12 +1,11 @@
 package com.productsyncapp.emailservice.service.impl;
 
 import com.productsyncapp.emailservice.dto.EmailDetails;
-import com.productsyncapp.emailservice.dto.RegisterationEmailDetails;
+import com.productsyncapp.emailservice.dto.RegisterationEmailRequest;
 import com.productsyncapp.emailservice.service.EmailService;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -36,11 +35,11 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public String sendVerificationEMail(RegisterationEmailDetails registerationEmailDetails) {
+    public String sendVerificationEMail(RegisterationEmailRequest registerationEmailRequest) {
         EmailDetails emailDetails = new EmailDetails();
-        emailDetails.setRecipient(registerationEmailDetails.recipient());
+        emailDetails.setRecipient(registerationEmailRequest.recipient());
         emailDetails.setSubject("Verify your email for Product Sync App");
-        emailDetails.setMsgBody("<Html>Please click this <a href='http://localhost:8080/api/v1/auth/verify_user_email?token="+registerationEmailDetails.token()+"'>link to verify<a/> your account");
+        emailDetails.setMsgBody("<Html>Please click this <a href='http://localhost:8080/api/v1/auth/verify_user_email?token="+ registerationEmailRequest.token()+"'>link to verify<a/> your account");
         boolean success = sendEMail(emailDetails);
         if(success){
             return "registeration mail send successfully";
