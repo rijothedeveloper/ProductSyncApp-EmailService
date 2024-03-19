@@ -1,6 +1,7 @@
 package com.productsyncapp.emailservice.controller;
 
 import com.productsyncapp.emailservice.dto.EmailDetails;
+import com.productsyncapp.emailservice.dto.RegisterationEmailDetails;
 import com.productsyncapp.emailservice.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +13,8 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
     @PostMapping("/sendMail")
-    public String sendMail(@RequestBody EmailDetails details)
+    public String sendMail(@RequestBody RegisterationEmailDetails registerationEmailDetails)
     {
-        return emailService.sendSimpleMail(details);
+        return emailService.sendVerificationEMail(registerationEmailDetails);
     }
 }

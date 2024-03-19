@@ -1,6 +1,7 @@
 package com.productsyncapp.emailservice.service.impl;
 
 import com.productsyncapp.emailservice.dto.EmailDetails;
+import com.productsyncapp.emailservice.dto.RegisterationEmailDetails;
 import com.productsyncapp.emailservice.service.EmailService;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Value("${spring.mail.username}")
     private String sender;
-    @Override
-    public String sendSimpleMail(EmailDetails details) {
+    public boolean sendEMail(EmailDetails details) {
         try {
             MimeMessage mailMessage = mailSender.createMimeMessage();
             // Setting up necessary details
@@ -27,11 +27,25 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setContent(details.getMsgBody(), "text/html; charset=utf-8");
             // Sending the mail
             mailSender.send(mailMessage);
-            return "Mail Sent Successfully...";
+            return true;
         }
         // Catch block to handle the exceptions
         catch (Exception e) {
-            return "Error while Sending Mail";
+            return false;
+        }
+    }
+
+    @Override
+    public String sendVerificationEMail(RegisterationEmailDetails registerationEmailDetails) {
+        EmailDetails emailDetails = new EmailDetails();
+        emailDetails.setRecipient(registerationEmailDetails.recipient());
+        emailDetails.setSubject("Verify your email for Product Sync App");
+        emailDetails.setMsgBody("<Html>Please click this <a href='http://localhost:8080/api/v1/auth/verify_user_email?token="+registerationEmailDetails.token()+"'>link to verify<a/> your account");
+        boolean success = sendEMail(emailDetails);
+        if(success){
+            return "registeration mail send successfully";
+        }else {
+            return "error in sending registeration email";
         }
     }
 }

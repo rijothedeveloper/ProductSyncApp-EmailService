@@ -1,3 +1,5 @@
+server:
+  port: 8082
 spring:
   application:
     name: EmailService
@@ -12,3 +14,4 @@ spring:
           auth: true
           starttls:
             enable: true
+
