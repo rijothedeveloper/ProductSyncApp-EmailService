@@ -16,7 +16,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Value("${spring.mail.username}")
     private String sender;
-    public boolean sendEMail(EmailDetails details) {
+    private boolean sendEMail(EmailDetails details) {
         try {
             MimeMessage mailMessage = mailSender.createMimeMessage();
             // Setting up necessary details
@@ -42,9 +42,9 @@ public class EmailServiceImpl implements EmailService {
         emailDetails.setMsgBody("<Html>Please click this <a href='http://localhost:8080/api/v1/auth/verify_user_email?token="+ registerationEmailRequest.token()+"'>link to verify<a/> your account");
         boolean success = sendEMail(emailDetails);
         if(success){
-            return "registeration mail send successfully";
+            System.out.println("registeration mail send successfully");
         }else {
-            return "error in sending registeration email";
+            System.out.println("error in sending registeration email");
         }
     }
 }

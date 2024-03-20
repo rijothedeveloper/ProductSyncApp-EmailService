@@ -15,5 +15,6 @@ public class EmailController {
     public String sendMail(@RequestBody RegisterationEmailRequest registerationEmailRequest)
     {
         return emailService.sendVerificationEMail(registerationEmailRequest);
+
     }
 }
